@@ -1,0 +1,3 @@
+#!/bin/bash
+SERVICE=mock-payment
+docker scan metamagic/$SERVICE
