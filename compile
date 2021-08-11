@@ -28,7 +28,7 @@ echo "Build the $SERVICE Microservice : mvn -e package"
 echo "---------------------------------------------------------------------------------------"
 mvn -e package
 # -------------------------------------------------------------------------------------------
-echo cp target/*service*.?ar lib/
+#echo cp target/*service*.?ar lib/
 echo "---------------------------------------------------------------------------------------"
 cp target/*service*.jar src/docker/
 cp target/libs/* src/docker/libs/
