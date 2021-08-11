@@ -1,6 +1,6 @@
 HELP.md
 target/
-libs
+lib
 src/docker/*.jar
 src/docker/libs
 !.mvn/wrapper/maven-wrapper.jar
