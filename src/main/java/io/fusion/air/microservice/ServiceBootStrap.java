@@ -18,8 +18,10 @@ package io.fusion.air.microservice;
 import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
 
+import io.fusion.air.microservice.server.ServiceConfiguration;
 import org.slf4j.Logger;
 import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.CommandLineRunner;
@@ -69,10 +71,14 @@ public class ServiceBootStrap {
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
 
-	private final String title = "<h1>Welcome to Micro Service<h1/>"
-			+"<h3>Copyright (c) MetaArivu Pvt Ltd, 2021</h3>";
+	private final String title = "<h1>Welcome to MICRO Service<h1/>"
+			+"<h3>Copyright (c) MetaArivu Pvt Ltd, 2021</h3>"
+			+"<h5>Build No: BN :: Build Date: BD :: </h5>";
 
 	private static ConfigurableApplicationContext context;
+
+	@Autowired
+	private ServiceConfiguration serviceConfig;
 
 	// Get the Service Name from the properties file
 	@Value("${service.name:NameNotDefined}")
@@ -97,13 +103,9 @@ public class ServiceBootStrap {
 	 */
 	public static void start(String[] args) {
 		log.info("Booting Service ..... ..");
-		// log.info("Booting Service ..... ..");
 		try {
 			context = SpringApplication.run(ServiceBootStrap.class, args);
 			log.info("Booting Service ..... ...Startup completed!");
-			// log.info(LocalDateTime.now()
-			// 		+"|Booting Service ..... ...Startup completed!");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,7 +115,6 @@ public class ServiceBootStrap {
 	 * Restart the Server
 	 */
 	public static void restart() {
-
 		log.info("Restarting Service ..... .. 1");
 		ApplicationArguments args = context.getBean(ApplicationArguments.class);
 		log.info("Restarting Service ..... .. 2");
@@ -142,7 +143,10 @@ public class ServiceBootStrap {
 	@GetMapping("/")
 	public String home() {
 		log.info("Request to Home Page of Service... ");
-		return this.title.replaceAll("Micro", serviceName);
+		return (serviceConfig == null) ? this.title :
+				this.title.replaceAll("MICRO", serviceConfig.getServiceName())
+							.replaceAll("BN", "" + serviceConfig.getBuildNumber())
+							.replaceAll("BD", serviceConfig.getBuildDate());
 	}
 
 	@Bean
