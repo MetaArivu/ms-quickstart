@@ -11,7 +11,7 @@
 # 5. Start the Service using ./run script and then test it with ./test script
 # After the Successful build and Startup of the Service, It should show the Build No. & Date
 # -------------------------------------------------------------------------------------------
-SERVICE=XYZ-SERVICE
+SERVICE=Mock
 
 echo "---------------------------------------------------------------------------------------"
 echo "Compiling $SERVICE Microservice"
@@ -22,7 +22,7 @@ mvn clean
 # -------------------------------------------------------------------------------------------
 echo "Git Commit Count = "`git rev-list HEAD --count`
 echo "---------------------------------------------------------------------------------------"
-#generateBuildNumber $SERVICE
+generateBuildNumber $SERVICE
 # -------------------------------------------------------------------------------------------
 echo "Build the $SERVICE Microservice : mvn -e package"
 echo "---------------------------------------------------------------------------------------"

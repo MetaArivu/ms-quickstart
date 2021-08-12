@@ -1,2 +1,4 @@
 #!/bin/bash
-docker container run -it metamagic/bdd-order-service
+SERVICE=`cat SERVICE_NAME`
+echo "docker container exec -it $SERVICE bash"
+docker container exec -it $SERVICE bash

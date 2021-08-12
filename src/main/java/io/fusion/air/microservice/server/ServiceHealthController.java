@@ -56,7 +56,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @Configuration
 @RestController
-@RequestMapping("/api/v1/service")
+@RequestMapping("/api/v1/payment/service")
 @RequestScope
 @Tag(name = "Core", description = "Core Service (Health, Readiness, ReStart.. etc)")
 public class ServiceHealthController {

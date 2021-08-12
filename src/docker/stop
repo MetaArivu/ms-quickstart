@@ -1,4 +1,5 @@
 #!/bin/bash
-SERVICE=mock-payment
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
 echo "docker container stop $SERVICE"
 docker container stop $SERVICE

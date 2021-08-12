@@ -1,7 +1,12 @@
 # =======================================================================
-# Micro Service Properties
+# Service Name & API Docs
 # =======================================================================
 service.name=Payment
+springdoc.api-docs.path=/api/v1/payments/docs
+springdoc.swagger-ui.path=/api/v1/payments/swagger-ui.html
+# =======================================================================
+# Micro Service Properties
+# =======================================================================
 server.port=9090
 server.version=0.1.0
 server.restart=true
@@ -26,6 +31,7 @@ remote.protocol=http
 springdoc.api-docs.enabled=true
 # Disabling the swagger-ui
 #springdoc.swagger-ui.enabled=true
+springdoc.swagger-ui.operationsSorter=method
 # Packages to include
 # springdoc.packagesToScan=io.fusion.water, io.fusion.fire
 # Paths to include

@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.fusion.air</groupId>
-	<artifactId>payments-service</artifactId>
+	<artifactId>mock-service</artifactId>
 	<version>0.1.0</version>
 	<packaging>jar</packaging>
-	<name>paymentsService</name>
-	<description>Payment Microservice</description>
+	<name>microService</name>
+	<description>Microservice Template</description>
 
 	<!-- 
 	<parent>

@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
 
 import io.fusion.air.microservice.server.ServiceConfiguration;
+import io.fusion.air.microservice.server.ServiceHealthController;
 import org.slf4j.Logger;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,7 +95,7 @@ public class ServiceBootStrap {
 		// Start the Server
 		start(args);
 
-		// API URL : http://localhost:9090/swagger-ui.html
+		// API URL : http://localhost:9090/servicecname/swagger-ui.html
 	}
 
 	/**
@@ -187,13 +188,15 @@ public class ServiceBootStrap {
 
 	/**
 	 * Open API v3 Docs - Core Service
-	 * @return
+	 * Change the Resource Mapping in ServiceHealthController
+	 *
+	 * @see ServiceHealthController
 	 */
 	@Bean
 	public GroupedOpenApi corePublicApi() {
 		return GroupedOpenApi.builder()
 				.group(serviceName+"-service-core")
-				.pathsToMatch("/api/v1/service/**")
+				.pathsToMatch("/api/v1/"+serviceName.toLowerCase()+"/service/**")
 				.build();
 	}
 

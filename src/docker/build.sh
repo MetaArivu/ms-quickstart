@@ -1,4 +1,5 @@
 #!/bin/bash
-SERVICE=mock-payment
-echo "docker build --force-rm -f Dockerfile -t metamagic/$SERVICE . "
-docker build --force-rm -f Dockerfile -t metamagic/$SERVICE . 
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
+echo "docker build --force-rm -f Dockerfile -t $ORG/$SERVICE . "
+docker build --force-rm -f Dockerfile -t $ORG/$SERVICE . 

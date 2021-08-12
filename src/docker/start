@@ -1,0 +1,5 @@
+#!/bin/bash
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
+echo "docker container run --name $SERVICE -d --rm -p 9010:9090 $ORG/$SERVICE"
+docker container run --name $SERVICE -d --rm -p 9010:9090 $ORG/$SERVICE

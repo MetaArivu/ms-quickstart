@@ -35,6 +35,9 @@ import org.springframework.stereotype.Component;
 		name = "serviceConfig", 
 		value = "classpath:application.properties")
 public class ServiceConfiguration {
+
+	@Value("${springdoc.swagger-ui.path}")
+	private String apiDocPath;
 	
 	@Value("${service.name:NameNotDefined}")
 	private String serviceName;
@@ -110,7 +113,7 @@ public class ServiceConfiguration {
 	 * @return
 	 */
 	public String getAPIURL() {
-		return "http://localhost:"+serverPort+"/swagger-ui.html";
+		return "http://localhost:"+serverPort+"/"+apiDocPath;
 	}
 
 	/**
