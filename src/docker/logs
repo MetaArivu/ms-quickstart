@@ -1,0 +1,6 @@
+#!/bin/bash
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
+CID=`cat $SERVICE.cid`
+echo "Checking logs for Container = $SERVICE and Container ID = $CID"
+docker logs $CID

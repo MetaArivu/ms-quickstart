@@ -1,0 +1,5 @@
+#!/bin/bash
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
+CID=`cat $SERVICE.cid`
+docker stats $CID

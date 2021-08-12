@@ -16,7 +16,7 @@ LABEL author="Araf Karsh Hamid <araf.karsh@metamagic.in>"
 RUN mkdir /Softwares/service
 RUN mkdir /Softwares/service/libs
 
-ARG SPRINGBOOT_JAR=*-spring-boot.jar
+ARG SPRINGBOOT_JAR=*?.?.?-spring-boot.jar
 ARG MAVEN_JAR=*-?.?.?.jar
 
 # Copy Service (Install)

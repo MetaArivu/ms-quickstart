@@ -164,6 +164,7 @@ public class ServiceBootStrap {
 
 	/**
 	 * Open API v3 Docs - All
+	 * Reference: https://springdoc.org/faq.html
 	 * @return
 	 */
 	@Bean
@@ -176,6 +177,7 @@ public class ServiceBootStrap {
 
 	/**
 	 * Open API v3 Docs - Micro Service
+	 * Reference: https://springdoc.org/faq.html
 	 * @return
 	 */
 	@Bean
@@ -183,11 +185,13 @@ public class ServiceBootStrap {
 		return GroupedOpenApi.builder()
 				.group(serviceName+"-service-"+serviceName)
 				.pathsToMatch("/api/v1/"+serviceName.toLowerCase()+"/**")
+				.pathsToExclude("/api/v1/"+serviceName.toLowerCase()+"/service/**")
 				.build();
 	}
 
 	/**
 	 * Open API v3 Docs - Core Service
+	 * Reference: https://springdoc.org/faq.html
 	 * Change the Resource Mapping in ServiceHealthController
 	 *
 	 * @see ServiceHealthController
@@ -200,6 +204,11 @@ public class ServiceBootStrap {
 				.build();
 	}
 
+	/**
+	 * Open API v3
+	 * Reference: https://springdoc.org/faq.html
+	 * @return
+	 */
 	@Bean
 	public OpenAPI orderOpenAPI() {
 		return new OpenAPI()
