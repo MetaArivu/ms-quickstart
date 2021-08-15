@@ -23,7 +23,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.function.Function;
 
-import io.fusion.air.microservice.server.ServiceConfiguration;
+import io.fusion.air.microservice.server.config.ServiceConfiguration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -20,7 +20,7 @@ ARG SPRINGBOOT_JAR=*?.?.?-spring-boot.jar
 ARG MAVEN_JAR=*-?.?.?.jar
 
 # Copy Service (Install)
-# COPY --chown=arivu:arivu startService /Softwares/service/
+# COPY --chown=arivu:arivu StartService /Softwares/service/
 
 # SpringBoot Fat Jar
 COPY --chown=arivu:arivu ${SPRINGBOOT_JAR} /Softwares/service/

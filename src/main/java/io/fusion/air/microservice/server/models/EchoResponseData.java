@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.fusion.air.microservice.server;
+package io.fusion.air.microservice.server.models;
 
 import java.time.LocalDateTime;
 

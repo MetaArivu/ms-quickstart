@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.air.microservice.server;
+package io.fusion.air.microservice.server.config;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,6 +41,9 @@ public class ServiceHelp {
 	private static final Logger log = getLogger(lookup().lookupClass());
 	
 	private static int counter;
+	
+	public final static String API = "/api/";
+	public final static String API_BASE = API + "v1/";
 	
 	@Autowired
 	private ServiceConfiguration serviceConfig;
@@ -80,22 +82,26 @@ public class ServiceHelp {
 	 */
 	@PostConstruct
 	public void printProperties() {
-		HashMap<String, String> sysProps = serviceConfig.getSystemProperties();
-		/**
-		for(String s: sysProps.keySet()) {
-			log.info("|System Property List  = "+s);
-			// System.out.println(LocalDateTime.now()+"|System Property List  = "+s);
+		HashMap<String, String> sysProps = serviceConfig.systemProperties();
+
+		// Environment Variables
+		for(String key: sysProps.keySet()) {
+			log.info("|System Property Key   = "+key+" | Value = "+sysProps.get(key));
+			// System.out.println(LocalDateTime.now()+"|System Property List  = "+key);
 		}
-		*/
+
+		// Property Map (Application.Properties)
+		HashMap<String, String> map = serviceConfig.getAppPropertyMap();
+		for(String k : map.keySet()) {
+			log.info("|Service Property Key  = "+k+" | Value = "+map.get(k));
+			// System.out.println(LocalDateTime.now()+"|Service Property Map  = "+k+" | Value = "+map.get(k));
+		}
+
+		// Property List (Application.properties)
 		ArrayList<String> properties = serviceConfig.getAppPropertyList();
 		for(String p: properties) {
 			log.info("|Service Property List = "+p);
 			// System.out.println(LocalDateTime.now()+"|Service Property List = "+p);
-		}
-		HashMap<String, String> map = serviceConfig.getAppPropertyMap();
-		for(String k : map.keySet()) {
-			log.info("|Service Property Map  = "+k+" | Value = "+map.get(k));
-			// System.out.println(LocalDateTime.now()+"|Service Property Map  = "+k+" | Value = "+map.get(k));
 		}
  	}
 }

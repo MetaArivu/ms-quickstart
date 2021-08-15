@@ -1,0 +1,5 @@
+#!/bin/bash
+ORG=`cat ORG_NAME`
+SERVICE=`cat SERVICE_NAME`
+echo "docker push $ORG/$SERVICE"
+docker push $ORG/$SERVICE

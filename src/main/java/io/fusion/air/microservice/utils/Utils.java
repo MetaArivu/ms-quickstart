@@ -19,7 +19,9 @@ package io.fusion.air.microservice.utils;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.fusion.air.microservice.server.config.ServiceConfiguration;
 
 /**
  * 
@@ -38,7 +40,10 @@ public final class Utils {
 			return "";
 		}
 		try {
-			return new ObjectMapper().writeValueAsString(_object);
+			return new ObjectMapper()
+					.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+					.findAndRegisterModules()
+					.writeValueAsString(_object);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -86,4 +91,8 @@ public final class Utils {
 	    }
 	}
 
+	public static void main(String[] args) throws Exception {
+
+		System.out.println("Utils.toJsonString() = "+Utils.toJsonString(new ServiceConfiguration("localhost", 9090)));
+	}
 }

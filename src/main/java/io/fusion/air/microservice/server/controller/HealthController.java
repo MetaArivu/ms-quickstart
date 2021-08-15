@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.fusion.air.microservice.server;
+package io.fusion.air.microservice.server.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import io.fusion.air.microservice.server.config.ServiceConfiguration;
+import io.fusion.air.microservice.server.config.ServiceHelp;
+import io.fusion.air.microservice.server.models.EchoResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,13 +36,13 @@ import org.springframework.web.context.annotation.RequestScope;
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.lang.invoke.MethodHandles.lookup;
 
 import io.fusion.air.microservice.ServiceBootStrap;
-import io.fusion.air.microservice.server.EchoData;
-import io.fusion.air.microservice.server.EchoResponseData;
+import io.fusion.air.microservice.server.models.EchoData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -59,7 +61,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/v1/payment/service")
 @RequestScope
 @Tag(name = "System", description = "System (Health, Readiness, ReStart.. etc)")
-public class ServiceHealthController {
+public class HealthController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -130,31 +132,7 @@ public class ServiceHealthController {
 		log.info(name()+"|Request to Ready Check.. ");
 		return ResponseEntity.ok("200:Service-Ready");
 	}
-	
-	/**
-	 * Check the Current Log Levels
-	 * @return
-	 */
-    @Operation(summary = "Service Log Levels")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-            description = "Service Log Level Check",
-            content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-            description = "Service is not ready.",
-            content = @Content)
-    })
-	@GetMapping("/log")
-    public String log() {
-		log.info("|Request to Log Level.. ");
-    	log.trace("HealthService|This is TRACE level message");
-        log.debug("HealthService|This is a DEBUG level message");
-        log.info("HealthService|This is an INFO level message");
-        log.warn("HealthService|This is a WARN level message");
-        log.error("HealthService|This is an ERROR level message");
-        return "HealthService|See the log for details";
-    }
-	
+
 	/**
 	 * Restart the Service
 	 */

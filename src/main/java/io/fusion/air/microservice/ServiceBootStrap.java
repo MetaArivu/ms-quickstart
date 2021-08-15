@@ -17,9 +17,10 @@ package io.fusion.air.microservice;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.http.HttpServletRequest;
 
-import io.fusion.air.microservice.server.ServiceConfiguration;
-import io.fusion.air.microservice.server.ServiceHealthController;
+import io.fusion.air.microservice.server.config.ServiceConfiguration;
+import io.fusion.air.microservice.server.controller.HealthController;
 import org.slf4j.Logger;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.unit.DataSize;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.unit.DataSize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -44,22 +43,22 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import static io.fusion.air.microservice.server.config.ServiceHelp.API_BASE;
+import static io.fusion.air.microservice.server.config.ServiceHelp.VERSION;;
+
 /**
  * Micro Service - Spring Boot Application
- * API URL : http://localhost:9090/swagger-ui.html
+ * API URL : http://localhost:9090/api/v1/service/swagger-ui.html
  *
  * @author arafkarsh
  */
@@ -95,7 +94,7 @@ public class ServiceBootStrap {
 		// Start the Server
 		start(args);
 
-		// API URL : http://localhost:9090/servicecname/swagger-ui.html
+		// API URL : http://localhost:9090/api/v1/service/swagger-ui.html
 	}
 
 	/**
@@ -142,12 +141,31 @@ public class ServiceBootStrap {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String home() {
-		log.info("Request to Home Page of Service... ");
+	public String home(HttpServletRequest request) {
+		log.info("Request to Home Page of Service... "+printRequestURI(request));
 		return (serviceConfig == null) ? this.title :
 				this.title.replaceAll("MICRO", serviceConfig.getServiceName())
-							.replaceAll("BN", "" + serviceConfig.getBuildNumber())
-							.replaceAll("BD", serviceConfig.getBuildDate());
+						.replaceAll("BN", "" + serviceConfig.getBuildNumber())
+						.replaceAll("BD", serviceConfig.getBuildDate());
+	}
+
+	/**
+	 * Print the Request
+	 *
+	 * @param request
+	 * @return
+	 */
+	private String printRequestURI(HttpServletRequest request) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("URI: ").append(request.getRequestURI());
+		String[] req = request.getRequestURI().split("/");
+		sb.append("Params Size = "+req.length+" : ");
+		for(int x=0; x < req.length; x++) {
+			sb.append(req[x]).append("|");
+		}
+		sb.append("\n");
+		log.info("HttpServletRequest: ["+sb.toString()+"]");
+		return sb.toString();
 	}
 
 	@Bean
@@ -184,23 +202,25 @@ public class ServiceBootStrap {
 	public GroupedOpenApi appPublicApi() {
 		return GroupedOpenApi.builder()
 				.group(serviceName+"-service-"+serviceName)
-				.pathsToMatch("/api/v1/"+serviceName.toLowerCase()+"/**")
-				.pathsToExclude("/api/v1/"+serviceName.toLowerCase()+"/service/**")
+				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/**")
+				.pathsToExclude(API_BASE+serviceName.toLowerCase()+"/service/**")
+				.pathsToExclude(API_BASE+serviceName.toLowerCase()+"/config/**")
 				.build();
 	}
 
 	/**
 	 * Open API v3 Docs - Core Service
 	 * Reference: https://springdoc.org/faq.html
-	 * Change the Resource Mapping in ServiceHealthController
+	 * Change the Resource Mapping in HealthController
 	 *
-	 * @see ServiceHealthController
+	 * @see HealthController
 	 */
 	@Bean
 	public GroupedOpenApi corePublicApi() {
 		return GroupedOpenApi.builder()
 				.group(serviceName+"-service-core")
-				.pathsToMatch("/api/v1/"+serviceName.toLowerCase()+"/service/**")
+				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/service/**")
+				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/config/**")
 				.build();
 	}
 
@@ -215,7 +235,7 @@ public class ServiceBootStrap {
 				.info(new Info()
 						.title(serviceName+" Microservice")
 						.description(serviceName+" Microservices")
-						.version("v0.1.0")
+						.version(VERSION)
 						.license(new License().name("License: Apache 2.0")
 								.url("http://www.metarivu.com"))
 				)
