@@ -18,6 +18,7 @@ package io.fusion.air.microservice.server.controller;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.fusion.air.microservice.ServiceBootStrap;
+import io.fusion.air.microservice.server.config.ConfigMap;
 import io.fusion.air.microservice.server.config.ServiceConfiguration;
 import io.fusion.air.microservice.server.config.ServiceHelp;
 import io.fusion.air.microservice.server.models.EchoData;
@@ -43,7 +44,7 @@ import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
- * Config Controller for the Service
+ * Health Controller for the Service
  * 
  * @author arafkarsh
  * @version 1.0
@@ -116,22 +117,28 @@ public class ConfigController {
 	})
 	@GetMapping("/map")
 	@ResponseBody
-	public ResponseEntity<String> getConfigMap(
+	public ResponseEntity<ConfigMap> getConfigMap(
+	// public ResponseEntity<ServiceConfiguration> getConfigMap(
 			HttpServletRequest request) throws Exception {
 		//  log.info("Pass 1");
 		ObjectMapper om = new ObjectMapper()
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				.findAndRegisterModules();
 		//  log.info("Pass 2");
-		 String json = serviceConfig.toJSONString();
+		String json = serviceConfig.toJSONString();
 		//  log.info("Pass 3");
 		log.info(name()+"|Request to Get ServiceConfiguration .1. "+json);
 		// String json2 = Utils.toJsonString(serviceConfig);
 		// log.info(name()+"|Request to Get ServiceConfiguration .2. "+json2);
 		// log.info("Pass 4");
-		// EchoResponseData erd = new EchoResponseData();
-		// return ResponseEntity.ok(Utils.toJsonString(erd));
-		return ResponseEntity.ok(serviceConfig.toJSONString());
+		// return ResponseEntity.ok(serviceConfig.toJSONString());
+		// return ResponseEntity.ok(serviceConfig);
+		ConfigMap cm = new ConfigMap(serviceConfig.getApiDocPath(),serviceConfig.getServiceName(),
+				serviceConfig.getBuildNumber(), serviceConfig.getBuildDate(), serviceConfig.getServerVersion(),
+				serviceConfig.getServerPort(), serviceConfig.getRemoteHost(), serviceConfig.getRemotePort(),
+				serviceConfig.getSpringCodecMaxMemory(), serviceConfig.getAppPropertyList(), serviceConfig.getAppPropertyMap()
+				);
+		return ResponseEntity.ok(cm);
 	}
 
 	/**
