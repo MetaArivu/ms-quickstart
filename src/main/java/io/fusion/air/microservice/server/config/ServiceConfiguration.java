@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Service Configuration
- * 
+ *
  * @author arafkarsh
  *
  */
@@ -250,5 +250,9 @@ public class ServiceConfiguration implements Serializable {
 	 */
 	public HashMap<String, String> systemProperties() {
 		return systemProperties;
+	}
+
+	public String getApiDocPath() {
+		return apiDocPath;
 	}
 }
