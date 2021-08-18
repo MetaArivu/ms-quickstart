@@ -200,10 +200,9 @@ public class ServiceBootStrap {
 	@Bean
 	public GroupedOpenApi appPublicApi() {
 		return GroupedOpenApi.builder()
-				.group(serviceConfig.getServiceName()+"-service-"+serviceConfig.getServiceName())
+				.group(serviceConfig.getServiceName()+"-service-core")
 				.pathsToMatch(serviceConfig.getServiceApiPath()+"/**")
-				.pathsToExclude(serviceConfig.getServiceApiPath()+"/service/**")
-				.pathsToExclude(serviceConfig.getServiceApiPath()+"/config/**")
+				.pathsToExclude(serviceConfig.getServiceApiPath()+"/service/**", serviceConfig.getServiceApiPath()+"/config/**")
 				.build();
 	}
 
@@ -225,7 +224,7 @@ public class ServiceBootStrap {
 	@Bean
 	public GroupedOpenApi systemPublicApi() {
 		return GroupedOpenApi.builder()
-				.group(serviceConfig.getServiceName()+"-service-system")
+				.group(serviceConfig.getServiceName()+"-service-health")
 				.pathsToMatch(serviceConfig.getServiceApiPath()+"/service/**")
 				.build();
 	}
@@ -247,7 +246,7 @@ public class ServiceBootStrap {
 				)
 				.externalDocs(new ExternalDocumentation()
 						.description(serviceConfig.getServiceName()+" Service Source Code")
-						.url("https://github.com/MetaArivu/mock-"+serviceConfig.getServiceName()));
+						.url(serviceConfig.getServiceApiRepository()));
 	}
 
 	/**

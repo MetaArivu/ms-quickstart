@@ -87,6 +87,9 @@ public class ServiceConfiguration implements Serializable {
 	@Value("${service.api.path:PATH}")
 	private String serviceApiPath;
 
+	@Value("${service.api.repository:GitRepo}")
+	private String serviceApiRepository;
+
 	@Value("${springdoc.swagger-ui.path}")
 	private String apiDocPath;
 
@@ -292,4 +295,7 @@ public class ServiceConfiguration implements Serializable {
 		return serviceApiPath;
 	}
 
+	public String getServiceApiRepository() {
+		return serviceApiRepository;
+	}
 }

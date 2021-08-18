@@ -39,12 +39,25 @@ public class EchoData {
 	private LocalDateTime requestTime;
 	
 	/**
-	 * @param word
+	 * Echo Constructor
+	 * @param _wordData
 	 */
 	public EchoData(String _wordData) {
 		this.word = _wordData;
 		requestTime = LocalDateTime.now();
 		day = requestTime.getDayOfYear();
+	}
+
+	/**
+	 * Echo Constructor
+	 * @param word
+	 * @param day
+	 * @param requestTime
+	 */
+	public EchoData(String word, int day, LocalDateTime requestTime) {
+		this.word = word;
+		this.day = day;
+		this.requestTime = requestTime;
 	}
 
 	/**

@@ -45,6 +45,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Health Controller for the Service
  * 
@@ -88,12 +91,16 @@ public class HealthController extends AbstractController {
             description = "Service is in bad health.",
             content = @Content)
     })
-	@GetMapping("/health")
+	@GetMapping("/live")
 	@ResponseBody
-	public ResponseEntity<String> getHealth( 
+	public ResponseEntity<Map<String,Object>> getHealth(
 			HttpServletRequest request) throws Exception {
 		log.info(name()+"|Request to Health of Service... ");
-		return ResponseEntity.ok("200:Service-Health-OK");
+		HashMap<String,Object> status = new HashMap<String,Object>();
+		status.put("Code", 200);
+		status.put("Status", true);
+		status.put("Message","Service is OK!");
+		return ResponseEntity.ok(status);
 	}
     
     @Operation(summary = "Service Readiness Check")
@@ -107,10 +114,14 @@ public class HealthController extends AbstractController {
     })
 	@GetMapping("/ready")
 	@ResponseBody
-	public ResponseEntity<String> isReady( 
+	public ResponseEntity<Map<String,Object>> isReady(
 			HttpServletRequest request) throws Exception {
 		log.info(name()+"|Request to Ready Check.. ");
-		return ResponseEntity.ok("200:Service-Ready");
+		HashMap<String,Object> status = new HashMap<String,Object>();
+		status.put("Code", 200);
+		status.put("Status", true);
+		status.put("Message","Service is Ready!");
+		return ResponseEntity.ok(status);
 	}
 
 	/**
@@ -139,18 +150,18 @@ public class HealthController extends AbstractController {
      * @param echoData
      * @return
      */
-    @Operation(summary = "Service Remote Echo")
+    @Operation(summary = "Service Echo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-            description = "Service Remote Echo",
+            description = "Service Echo",
             content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
-            description = "Service is not ready.",
+            description = "Service unable to do Echo!",
             content = @Content)
     })
-    @PostMapping("/remoteEcho")
+    @PostMapping("/echo")
     public ResponseEntity<EchoResponseData> remoteEcho(@RequestBody EchoData echoData) {
-		log.info(name()+"|Request for RemoteEcho ... "+echoData);
+		log.info(name()+"|Request for Echo ... "+echoData);
     	if(echoData == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -167,7 +178,7 @@ public class HealthController extends AbstractController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
             description = "Service Home",
-            content = {@Content(mediaType = "application/json")}),
+            content = {@Content(mediaType = "application/text")}),
             @ApiResponse(responseCode = "404",
             description = "Service is not ready.",
             content = @Content)

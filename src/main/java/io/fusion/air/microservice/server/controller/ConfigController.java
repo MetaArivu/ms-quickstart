@@ -127,7 +127,7 @@ public class ConfigController extends AbstractController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
             description = "Service Log Level Check",
-            content = {@Content(mediaType = "application/json")}),
+            content = {@Content(mediaType = "application/text")}),
             @ApiResponse(responseCode = "404",
             description = "Service is not ready.",
             content = @Content)
