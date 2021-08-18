@@ -134,13 +134,13 @@ public class ConfigController extends AbstractController {
     })
 	@GetMapping("/log")
     public String log() {
-		log.info("|Request to Log Level.. ");
-    	log.trace("HealthService|This is TRACE level message");
-        log.debug("HealthService|This is a DEBUG level message");
-        log.info("HealthService|This is an INFO level message");
-        log.warn("HealthService|This is a WARN level message");
-        log.error("HealthService|This is an ERROR level message");
-        return "HealthService|See the log for details";
+		log.info(name()+"|Request to Log Level.. ");
+    	log.trace(name()+"|This is TRACE level message");
+        log.debug(name()+"|This is a DEBUG level message");
+        log.info(name()+"|This is an INFO level message");
+        log.warn(name()+"|This is a WARN level message");
+        log.error(name()+"|This is an ERROR level message");
+        return name()+"|See the log for details";
     }
 	
  }

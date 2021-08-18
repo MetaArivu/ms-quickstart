@@ -118,13 +118,13 @@ public class AppControllerImpl extends AbstractController {
 	/**
 	 * Cancel the Payment
 	 */
-	@Operation(summary = "Cancel Payments")
+	@Operation(summary = "Cancel Payment")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200",
-					description = "Cancel the payment",
+					description = "Payment Cancelled",
 					content = {@Content(mediaType = "application/json")}),
 			@ApiResponse(responseCode = "404",
-					description = "Unable to Cancel the payment",
+					description = "Unable to Cancel the Payment",
 					content = @Content)
 	})
 	@DeleteMapping("/cancel/{referenceNo}")
@@ -134,31 +134,30 @@ public class AppControllerImpl extends AbstractController {
 		status.put("Code", 200);
 		status.put("Status", true);
 		status.put("ReferenceNo", _referenceNo);
-		status.put("Message","Cancelled the order!");
+		status.put("Message","Payment cancelled!");
 		return ResponseEntity.ok(status);
 	}
 
 	/**
 	 * Update the Payment
 	 */
-	@Operation(summary = "Update Payments")
+	@Operation(summary = "Update Payment")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200",
-					description = "Update the payment",
+					description = "Update the Payment",
 					content = {@Content(mediaType = "application/json")}),
 			@ApiResponse(responseCode = "404",
-					description = "Unable to Update the payment",
+					description = "Unable to Update the Payment",
 					content = @Content)
 	})
 	@PutMapping("/update/{referenceNo}")
 	public ResponseEntity<HashMap<String,Object>> updatePayment(@PathVariable("referenceNo") String _referenceNo) {
-		log.info("|"+name()+"|Request to Update payments... ");
+		log.info("|"+name()+"|Request to Update Payment... "+_referenceNo);
 		HashMap<String,Object> status = new HashMap<String,Object>();
 		status.put("Code", 200);
 		status.put("Status", true);
 		status.put("ReferenceNo", _referenceNo);
-		status.put("Message","Update the order!");
+		status.put("Message","Payment updated!");
 		return ResponseEntity.ok(status);
 	}
  }
-
