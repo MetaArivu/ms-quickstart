@@ -35,10 +35,6 @@ import org.springframework.web.context.annotation.RequestScope;
 // Logging System
 import org.slf4j.Logger;
 import static org.slf4j.LoggerFactory.getLogger;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import static java.lang.invoke.MethodHandles.lookup;
 
 import io.fusion.air.microservice.ServiceBootStrap;
@@ -58,10 +54,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  */
 @Configuration
 @RestController
-@RequestMapping("/api/v1/payment/service")
+// "/api/v1/payments/service"
+@RequestMapping("${service.api.path}"+ServiceConfiguration.HEALTH)
 @RequestScope
-@Tag(name = "System", description = "System (Health, Readiness, ReStart.. etc)")
-public class HealthController {
+@Tag(name = "System", description = "Health (Liveness, Readiness, ReStart.. etc)")
+public class HealthController extends AbstractController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -77,23 +74,6 @@ public class HealthController {
 	private ServiceConfiguration serviceConfig;
 	private String serviceName;
 
-	/**
-	 * Returns the Service Name
-	 * @return
-	 */
-	private String name() {
-		if(serviceName == null) {
-			if(serviceConfig == null) {
-				log.info("|Error Autowiring Service config!!!");
-				serviceName = "|NoServiceName";
-			} else {
-				serviceName = "|" + serviceConfig.getServiceName() + "Service";
-				log.info("|Version="+ServiceHelp.VERSION);
-			}
-		}
-		return serviceName;
-	}
-	
 	/**
 	 * Get Method Call to Check the Health of the App
 	 * 
@@ -200,24 +180,6 @@ public class HealthController {
 		sb.append(title);
 		sb.append("<br>");
 		sb.append(printRequestURI(request));
-		return sb.toString();
-	}
-
-	/**
-	 * Print the Request
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private String printRequestURI(HttpServletRequest request) {
-		StringBuilder sb = new StringBuilder();
-		String[] req = request.getRequestURI().split("/");
-		sb.append("Params Size = "+req.length+" : ");
-		for(int x=0; x < req.length; x++) {
-			sb.append(req[x]).append("|");
-		}
- 		sb.append("\n");
-		log.info(sb.toString());
 		return sb.toString();
 	}
  }

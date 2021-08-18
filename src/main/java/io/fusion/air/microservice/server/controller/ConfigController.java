@@ -17,13 +17,9 @@ package io.fusion.air.microservice.server.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.fusion.air.microservice.ServiceBootStrap;
 import io.fusion.air.microservice.server.config.ConfigMap;
 import io.fusion.air.microservice.server.config.ServiceConfiguration;
 import io.fusion.air.microservice.server.config.ServiceHelp;
-import io.fusion.air.microservice.server.models.EchoData;
-import io.fusion.air.microservice.server.models.EchoResponseData;
-import io.fusion.air.microservice.utils.Utils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -44,18 +40,18 @@ import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
- * Health Controller for the Service
+ * Config Controller for the Service
  * 
  * @author arafkarsh
  * @version 1.0
- * 
  */
 @Configuration
 @RestController
-@RequestMapping("/api/v1/payment/config")
+//  "/api/v1/payments/config"
+@RequestMapping("${service.api.path}"+ServiceConfiguration.CONFIG)
 @RequestScope
-@Tag(name = "System", description = "System (Health, Readiness, ReStart.. etc)")
-public class ConfigController {
+@Tag(name = "System", description = "Config (Environment, Secrets, ConfigMap.. etc)")
+public class ConfigController extends AbstractController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
 	private static final Logger log = getLogger(lookup().lookupClass());
@@ -66,28 +62,10 @@ public class ConfigController {
 					+ ServiceHelp.NL
 					;
 
-
 	@Autowired
 	private ServiceConfiguration serviceConfig;
 	private String serviceName;
 
-	/**
-	 * Returns the Service Name
-	 * @return
-	 */
-	private String name() {
-		if(serviceName == null) {
-			if(serviceConfig == null) {
-				log.info("|Error Autowiring Service config!!!");
-				serviceName = "|NoServiceName";
-			} else {
-				serviceName = "|" + serviceConfig.getServiceName() + "Service";
-				log.info("|Version="+ServiceHelp.VERSION);
-			}
-		}
-		return serviceName;
-	}
-	
 	@Operation(summary = "Show the Environment Settings ")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200",
@@ -165,22 +143,5 @@ public class ConfigController {
         return "HealthService|See the log for details";
     }
 	
-	/**
-	 * Print the Request
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private String printRequestURI(HttpServletRequest request) {
-		StringBuilder sb = new StringBuilder();
-		String[] req = request.getRequestURI().split("/");
-		sb.append("Params Size = "+req.length+" : ");
-		for(int x=0; x < req.length; x++) {
-			sb.append(req[x]).append("|");
-		}
- 		sb.append("\n");
-		log.info(sb.toString());
-		return sb.toString();
-	}
  }
 

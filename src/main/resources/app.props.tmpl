@@ -1,9 +1,11 @@
 # =======================================================================
-# Service Name & API Docs
+# Service Name & API Details -  Version, Path
 # =======================================================================
 service.name=Payment
-springdoc.api-docs.path=/api/v1/payments/
-springdoc.swagger-ui.path=/api/v1/payments/swagger-ui.html
+service.api.prefix=api
+service.api.version=v1
+service.api.name=payment
+service.api.path=/${service.api.prefix}/${service.api.version}/${service.api.name}
 # =======================================================================
 # Micro Service Properties
 # =======================================================================
@@ -27,6 +29,8 @@ remote.protocol=http
 # Open API Properties
 # For More Info: https://springdoc.org/#Introduction
 # =======================================================================
+springdoc.api-docs.path=${service.api.path}/
+springdoc.swagger-ui.path=${service.api.path}/swagger-ui.html
 # Disabling the /v3/api-docs enpoint
 springdoc.api-docs.enabled=true
 # Disabling the swagger-ui

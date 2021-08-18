@@ -53,7 +53,6 @@ import java.util.Arrays;
 import static java.lang.invoke.MethodHandles.lookup;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import static io.fusion.air.microservice.server.config.ServiceHelp.API_BASE;
 import static io.fusion.air.microservice.server.config.ServiceHelp.VERSION;;
 
 /**
@@ -188,7 +187,7 @@ public class ServiceBootStrap {
 	@Bean
 	public GroupedOpenApi allPublicApi() {
 		return GroupedOpenApi.builder()
-				.group(serviceName+"-service")
+				.group(serviceConfig.getServiceName()+"-service")
 				.pathsToMatch("/api/**")
 				.build();
 	}
@@ -201,10 +200,10 @@ public class ServiceBootStrap {
 	@Bean
 	public GroupedOpenApi appPublicApi() {
 		return GroupedOpenApi.builder()
-				.group(serviceName+"-service-"+serviceName)
-				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/**")
-				.pathsToExclude(API_BASE+serviceName.toLowerCase()+"/service/**")
-				.pathsToExclude(API_BASE+serviceName.toLowerCase()+"/config/**")
+				.group(serviceConfig.getServiceName()+"-service-"+serviceConfig.getServiceName())
+				.pathsToMatch(serviceConfig.getServiceApiPath()+"/**")
+				.pathsToExclude(serviceConfig.getServiceApiPath()+"/service/**")
+				.pathsToExclude(serviceConfig.getServiceApiPath()+"/config/**")
 				.build();
 	}
 
@@ -216,11 +215,18 @@ public class ServiceBootStrap {
 	 * @see HealthController
 	 */
 	@Bean
-	public GroupedOpenApi corePublicApi() {
+	public GroupedOpenApi configPublicApi() {
 		return GroupedOpenApi.builder()
-				.group(serviceName+"-service-core")
-				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/service/**")
-				.pathsToMatch(API_BASE+serviceName.toLowerCase()+"/config/**")
+				.group(serviceConfig.getServiceName()+"-service-config")
+				.pathsToMatch(serviceConfig.getServiceApiPath()+"/config/**")
+				.build();
+	}
+
+	@Bean
+	public GroupedOpenApi systemPublicApi() {
+		return GroupedOpenApi.builder()
+				.group(serviceConfig.getServiceName()+"-service-system")
+				.pathsToMatch(serviceConfig.getServiceApiPath()+"/service/**")
 				.build();
 	}
 
@@ -233,15 +239,15 @@ public class ServiceBootStrap {
 	public OpenAPI orderOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-						.title(serviceName+" Microservice")
-						.description(serviceName+" Microservices")
+						.title(serviceConfig.getServiceName()+" Microservice")
+						.description(serviceConfig.getServiceName()+" Microservices")
 						.version(VERSION)
 						.license(new License().name("License: Apache 2.0")
 								.url("http://www.metarivu.com"))
 				)
 				.externalDocs(new ExternalDocumentation()
-						.description(serviceName+" Service Source Code")
-						.url("https://github.com/MetaArivu/"+serviceName+"-service"));
+						.description(serviceConfig.getServiceName()+" Service Source Code")
+						.url("https://github.com/MetaArivu/mock-"+serviceConfig.getServiceName()));
 	}
 
 	/**

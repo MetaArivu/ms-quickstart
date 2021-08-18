@@ -48,12 +48,14 @@ public class ServiceConfiguration implements Serializable {
 		sb.append("{");
 		sb.append("\"springdoc.swagger-ui.path\": \"").append(apiDocPath).append("\",");
 		sb.append("\"service.name\": \"").append(serviceName).append("\",");
+		sb.append("\"service.api.prefix\": \"").append(serviceApiPrefix).append("\",");
+		sb.append("\"service.api.version\": \"").append(serviceApiVersion).append("\",");
+		sb.append("\"service.api.name\": \"").append(serviceApiName).append("\",");
+		sb.append("\"service.api.path\": \"").append(serviceApiPath).append("\",");
 		sb.append("\"build.number\": ").append(buildNumber).append(",");
 		sb.append("\"build.date\": \"").append(buildDate).append("\",");
 		sb.append("\"serverVersion\": \"").append(serverVersion).append("\",");
 		sb.append("\"server.port\": ").append(serverPort).append(",");
-		sb.append("\"payment.gateway.host\": \"").append(paymentGWHost).append("\",");
-		sb.append("\"payment.gateway.port\": ").append(paymentGWPort).append(",");
 		sb.append("\"remote.host\": \"").append(remoteHost).append("\",");
 		sb.append("\"remote.port\": ").append(remotePort).append(",");
 		sb.append("\"server.restart\": ").append(serverRestart).append(",");
@@ -64,12 +66,30 @@ public class ServiceConfiguration implements Serializable {
 		sb.append("}");
 		return sb.toString();
 	}
-	@Value("${springdoc.swagger-ui.path}")
-	private String apiDocPath;
-	
+	// Config Path
+	public static final String CONFIG = "/config";
+
+	// Health Path
+	public static final String HEALTH = "/service";
+
 	@Value("${service.name:NameNotDefined}")
 	private String serviceName;
-	
+
+	@Value("${service.api.prefix:API}")
+	private String serviceApiPrefix;
+
+	@Value("${service.api.version:V1}")
+	private String serviceApiVersion;
+
+	@Value("${service.api.name:NAME}")
+	private String serviceApiName;
+
+	@Value("${service.api.path:PATH}")
+	private String serviceApiPath;
+
+	@Value("${springdoc.swagger-ui.path}")
+	private String apiDocPath;
+
 	@Value("${build.number:13}")
 	private int buildNumber;
 	
@@ -144,7 +164,7 @@ public class ServiceConfiguration implements Serializable {
 	 * @return
 	 */
 	public String apiURL() {
-		return "http://localhost:"+serverPort+"/"+apiDocPath;
+		return "http://localhost:"+serverPort+"/"+ apiDocPath;
 	}
 
 	/**
@@ -255,4 +275,21 @@ public class ServiceConfiguration implements Serializable {
 	public String getApiDocPath() {
 		return apiDocPath;
 	}
+
+	public String getServiceApiPrefix() {
+		return serviceApiPrefix;
+	}
+
+	public String getServiceApiVersion() {
+		return serviceApiVersion;
+	}
+
+	public String getServiceApiName() {
+		return serviceApiName;
+	}
+
+	public String getServiceApiPath() {
+		return serviceApiPath;
+	}
+
 }

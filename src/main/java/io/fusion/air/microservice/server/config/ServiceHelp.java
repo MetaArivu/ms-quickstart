@@ -42,9 +42,6 @@ public class ServiceHelp {
 	
 	private static int counter;
 	
-	public final static String API = "/api/";
-	public final static String API_BASE = API + "v1/";
-	
 	@Autowired
 	private ServiceConfiguration serviceConfig;
 	
