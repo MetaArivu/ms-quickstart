@@ -34,6 +34,8 @@ import org.springframework.web.context.annotation.RequestScope;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import static java.lang.invoke.MethodHandles.lookup;
@@ -77,10 +79,15 @@ public class AppControllerImpl extends AbstractController {
     })
 	@GetMapping("/status/{referenceNo}")
 	@ResponseBody
-	public ResponseEntity<String> getStatus(@PathVariable("referenceNo") String _referenceNo,
-			HttpServletRequest request) throws Exception {
+	public ResponseEntity<Map<String,Object>> getStatus(@PathVariable("referenceNo") String _referenceNo,
+														HttpServletRequest request) throws Exception {
 		log.info("|"+name()+"|Request to Payment Status of Service... ");
-		return ResponseEntity.ok("200:Service-Health-OK");
+		HashMap<String,Object> status = new HashMap<String,Object>();
+		status.put("Code", 200);
+		status.put("Status", true);
+		status.put("ReferenceNo", _referenceNo);
+		status.put("Message","Payment Status is good!");
+		return ResponseEntity.ok(status);
 	}
 
 	/**
@@ -121,13 +128,18 @@ public class AppControllerImpl extends AbstractController {
 					content = @Content)
 	})
 	@DeleteMapping("/cancel/{referenceNo}")
-	public ResponseEntity<String> cancel(@PathVariable("referenceNo") String _referenceNo) {
-		log.info("|"+name()+"|Request to process payments... ");
-		return ResponseEntity.ok("200:Cancellation-OK");
+	public ResponseEntity<HashMap<String,Object>> cancel(@PathVariable("referenceNo") String _referenceNo) {
+		log.info("|"+name()+"|Request to Cancel the payments... ");
+		HashMap<String,Object> status = new HashMap<String,Object>();
+		status.put("Code", 200);
+		status.put("Status", true);
+		status.put("ReferenceNo", _referenceNo);
+		status.put("Message","Cancelled the order!");
+		return ResponseEntity.ok(status);
 	}
 
 	/**
-	 * Cancel the Payment
+	 * Update the Payment
 	 */
 	@Operation(summary = "Update Payments")
 	@ApiResponses(value = {
@@ -139,9 +151,14 @@ public class AppControllerImpl extends AbstractController {
 					content = @Content)
 	})
 	@PutMapping("/update/{referenceNo}")
-	public ResponseEntity<String> updatePayment(@PathVariable("referenceNo") String _referenceNo) {
+	public ResponseEntity<HashMap<String,Object>> updatePayment(@PathVariable("referenceNo") String _referenceNo) {
 		log.info("|"+name()+"|Request to Update payments... ");
-		return ResponseEntity.ok("200:Update-OK");
+		HashMap<String,Object> status = new HashMap<String,Object>();
+		status.put("Code", 200);
+		status.put("Status", true);
+		status.put("ReferenceNo", _referenceNo);
+		status.put("Message","Update the order!");
+		return ResponseEntity.ok(status);
 	}
  }
 
