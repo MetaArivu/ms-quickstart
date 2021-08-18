@@ -171,6 +171,18 @@ public class ServiceConfiguration implements Serializable {
 	}
 
 	/**
+	 * Returns Service Details as HTML
+	 * @return
+	 */
+	public String getServiceDetails() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<b>").append(serviceName).append(" Service </b><br>");
+		sb.append("Build No:<b> ").append(buildNumber).append("</b>, ");
+		sb.append("Build Date:<b> ").append(buildDate).append("</b> ");
+		return sb.toString();
+	}
+
+	/**
 	 * Show the API URL
 	 * @return
 	 */

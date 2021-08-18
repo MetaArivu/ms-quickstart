@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import io.fusion.air.microservice.server.config.ServiceConfiguration;
 import io.fusion.air.microservice.server.controller.HealthController;
+import io.swagger.v3.oas.models.info.Contact;
 import org.slf4j.Logger;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -238,8 +239,8 @@ public class ServiceBootStrap {
 	public OpenAPI orderOpenAPI() {
 		return new OpenAPI()
 				.info(new Info()
-						.title(serviceConfig.getServiceName()+" Microservice")
-						.description(serviceConfig.getServiceName()+" Microservices")
+						.title(serviceConfig.getServiceName()+" Service")
+						.description(serviceConfig.getServiceDetails())
 						.version(VERSION)
 						.license(new License().name("License: Apache 2.0")
 								.url(serviceConfig.getServiceUrl()))
