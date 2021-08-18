@@ -153,11 +153,14 @@ public class HealthController extends AbstractController {
     @Operation(summary = "Service Echo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-            description = "Service Echo",
-            content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-            description = "Service unable to do Echo!",
-            content = @Content)
+            		description = "Service Echo",
+            		content = {@Content(mediaType = "application/json")}),
+			@ApiResponse(responseCode = "400",
+					description = "Service unable to deserialize!",
+					content = @Content),
+			@ApiResponse(responseCode = "404",
+            		description = "Service unable to do Echo!",
+            		content = @Content)
     })
     @PostMapping("/echo")
     public ResponseEntity<EchoResponseData> remoteEcho(@RequestBody EchoData echoData) {

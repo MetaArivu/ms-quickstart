@@ -30,9 +30,10 @@ import io.fusion.air.microservice.utils.Utils;
  */
 public class EchoData {
 	
-	@JsonSerialize()
+	// @JsonSerialize()
 	private String word;
-	@JsonSerialize()
+
+	// @JsonSerialize()
 	private int day;
 	
 	@JsonSerialize(using = DateJsonSerializer.class)
