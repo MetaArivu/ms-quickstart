@@ -43,6 +43,10 @@ import org.springframework.stereotype.Component;
 		// value = "classpath:application2.properties,file:./application.properties")
 public class ServiceConfiguration implements Serializable {
 
+	/**
+	 * Return the JSON String
+	 * @return
+	 */
 	public String toJSONString()  {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
@@ -52,6 +56,7 @@ public class ServiceConfiguration implements Serializable {
 		sb.append("\"service.api.version\": \"").append(serviceApiVersion).append("\",");
 		sb.append("\"service.api.name\": \"").append(serviceApiName).append("\",");
 		sb.append("\"service.api.path\": \"").append(serviceApiPath).append("\",");
+		sb.append("\"service.url\": \"").append(serviceUrl).append("\",");
 		sb.append("\"build.number\": ").append(buildNumber).append(",");
 		sb.append("\"build.date\": \"").append(buildDate).append("\",");
 		sb.append("\"serverVersion\": \"").append(serverVersion).append("\",");
@@ -89,6 +94,9 @@ public class ServiceConfiguration implements Serializable {
 
 	@Value("${service.api.repository:GitRepo}")
 	private String serviceApiRepository;
+
+	@Value("${service.url:URL}")
+	private String serviceUrl;
 
 	@Value("${springdoc.swagger-ui.path}")
 	private String apiDocPath;
@@ -297,5 +305,9 @@ public class ServiceConfiguration implements Serializable {
 
 	public String getServiceApiRepository() {
 		return serviceApiRepository;
+	}
+
+	public String getServiceUrl() {
+		return serviceUrl;
 	}
 }

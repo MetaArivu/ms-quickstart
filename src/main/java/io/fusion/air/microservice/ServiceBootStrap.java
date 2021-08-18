@@ -242,7 +242,7 @@ public class ServiceBootStrap {
 						.description(serviceConfig.getServiceName()+" Microservices")
 						.version(VERSION)
 						.license(new License().name("License: Apache 2.0")
-								.url("http://www.metarivu.com"))
+								.url(serviceConfig.getServiceUrl()))
 				)
 				.externalDocs(new ExternalDocumentation()
 						.description(serviceConfig.getServiceName()+" Service Source Code")
