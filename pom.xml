@@ -6,7 +6,7 @@
 	<artifactId>mock-service</artifactId>
 	<version>0.1.0</version>
 	<packaging>jar</packaging>
-	<name>microService</name>
+	<name>mockService</name>
 	<description>Microservice Template</description>
 
 	<!-- 

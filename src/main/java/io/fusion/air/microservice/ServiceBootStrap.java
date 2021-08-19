@@ -241,7 +241,7 @@ public class ServiceBootStrap {
 				.info(new Info()
 						.title(serviceConfig.getServiceName()+" Service")
 						.description(serviceConfig.getServiceDetails())
-						.version(VERSION)
+						.version(serviceConfig.getServerVersion())
 						.license(new License().name("License: Apache 2.0")
 								.url(serviceConfig.getServiceUrl()))
 				)

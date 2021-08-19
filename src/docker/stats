@@ -1,5 +1,10 @@
 #!/bin/bash
-ORG=`cat ORG_NAME`
-SERVICE=`cat SERVICE_NAME`
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+# Container Stats (CPU, Memory)
+# -------------------------------------------------------------------------------------------
+ORG=`../../getServiceName 2`
+SERVICE=`../../getServiceName`
 CID=`cat $SERVICE.cid`
 docker stats $CID

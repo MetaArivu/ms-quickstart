@@ -1,10 +1,11 @@
 #################################################################
 #
-# Micro Service - Developer Tool box to test Pods in Kubernetes
+# Microservice Template
+# (C) MetaMagic Global Inc, NJ, USA, 2021
 #
-# (C) MetaMagic Global Inc, NJ, USA, 2017
+# Service Name: 
 #
-# Desire3D Micro Services Containers - Tomcat
+# Microservices Containers - SpringBoot 2.5.3
 #
 # Version 0.1
 #################################################################
@@ -15,9 +16,10 @@ LABEL author="Araf Karsh Hamid <araf.karsh@metamagic.in>"
 
 RUN mkdir /Softwares/service
 RUN mkdir /Softwares/service/libs
+RUN mkdir /home/arivu/libs
 
-ARG SPRINGBOOT_JAR=*?.?.?-spring-boot.jar
-ARG MAVEN_JAR=*-?.?.?.jar
+ARG SPRINGBOOT_JAR=*-spring-boot.jar
+ARG MAVEN_JAR=*-thin.jar
 
 # Copy Service (Install)
 # COPY --chown=arivu:arivu StartService /Softwares/service/
@@ -34,9 +36,9 @@ COPY --chown=arivu:arivu ${SPRINGBOOT_JAR} /Softwares/service/
 # Change the Mode
 RUN chmod -R 750 /Softwares/service/*
 
-# Expose Micro Service Port
+# Expose Microservice Port
 EXPOSE 9090
 
-# Start Micro Service
-#ENTRYPOINT ["java","-jar","/Softwares/service/mock-service-0.1.0.jar"]
-ENTRYPOINT ["java","-jar","/Softwares/service/mock-service-0.1.0-spring-boot.jar"]
+# Start Microservice
+#ENTRYPOINT ["java","-jar","/Softwares/service/mock-service-thin.jar"]
+ENTRYPOINT ["java","-jar","/Softwares/service/mock-service-spring-boot.jar"]

@@ -1,4 +1,10 @@
 #!/bin/bash
-SERVICE=`cat SERVICE_NAME`
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+# Scan Container for Vulnerabilities
+# -------------------------------------------------------------------------------------------
+ORG=`../../getServiceName 2`
+SERVICE=`../../getServiceName`
 echo "Scanning $SERVICE for vulnerabilities"
-docker scan metamagic/$SERVICE
+docker scan $ORG/$SERVICE

@@ -1,6 +1,11 @@
 #!/bin/bash
-ORG=`cat ORG_NAME`
-SERVICE=`cat SERVICE_NAME`
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+# Stop Container
+# -------------------------------------------------------------------------------------------
+ORG=`../../getServiceName 2`
+SERVICE=`../../getServiceName`
 echo "docker container stop $SERVICE"
 docker container stop $SERVICE
 mv $SERVICE.cid $SERVICE.cid.old

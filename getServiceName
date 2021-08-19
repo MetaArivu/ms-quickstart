@@ -1,0 +1,24 @@
+#!/bin/sh
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+SRC_BASE=~/workspace/IntelliJ/microservice-template
+serviceName=1
+orgName=2
+param=$1
+if [ -z "$param" ]
+then
+	fgrep service.api.name= $SRC_BASE/src/main/resources/app.props.tmpl |  cut -d "=" -f 2
+	exit
+fi
+if [ $param == $serviceName ]
+then
+	fgrep service.api.name= $SRC_BASE/src/main/resources/app.props.tmpl |  cut -d "=" -f 2
+	exit
+elif [ $param == $orgName ] 
+then
+	fgrep service.org= $SRC_BASE/src/main/resources/app.props.tmpl |  cut -d "=" -f 2
+	exit
+fi
+fgrep service.api.name= $SRC_BASE/src/main/resources/app.props.tmpl |  cut -d "=" -f 2
+exit

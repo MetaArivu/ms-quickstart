@@ -1,8 +1,11 @@
 #!/bin/sh
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
 
 PORT=9090
 API_VERSION=v1
-SERVICE=payment
+SERVICE=`getServiceName`
 
 echo "---------------------------------------------------------------------------------------"
 echo "Testing $SERVICE Microservice"
@@ -12,8 +15,8 @@ echo "curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/home"
 curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/home
 echo ""
 echo "---------------------------------------------------------------------------------------"
-echo "curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/health"
-curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/health
+echo "curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/live"
+curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/live
 echo ""
 echo "---------------------------------------------------------------------------------------"
 echo "curl localhost:$PORT/api/$API_VERSION/$SERVICE/service/ready"

@@ -1,4 +1,8 @@
 #!/bin/sh
+# ============================================================================
+# Build No. Generator
+# @author: Araf Karsh Hamid
+# ============================================================================
 
 PROPS_PATH=src/main/resources
 PROPS_BUILD=app.props.build

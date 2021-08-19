@@ -1,4 +1,9 @@
 #!/bin/bash
-SERVICE=`cat SERVICE_NAME`
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+# Shell Container
+# -------------------------------------------------------------------------------------------
+SERVICE=`../../getServiceName`
 echo "docker container exec -it $SERVICE bash"
 docker container exec -it $SERVICE bash

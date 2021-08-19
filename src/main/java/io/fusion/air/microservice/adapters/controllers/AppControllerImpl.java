@@ -53,7 +53,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 // "/api/v1/payments"
 @RequestMapping("${service.api.path}")
 @RequestScope
-@Tag(name = "Payment", description = "Payment Service ")
+@Tag(name = "Mock Service", description = "Ex. io.f.a.m.adapters.controllers.AppControllerImpl")
 public class AppControllerImpl extends AbstractController {
 
 	// Set Logger -> Lookup will automatically determine the class name.
