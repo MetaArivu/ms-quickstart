@@ -61,12 +61,13 @@ public class ServiceEventListener {
 	 * Shows the Service Logo and Version Details. 
 	 */
 	public void showLogo() {
-		String version = (serviceConfig != null) 
-				? serviceConfig.getServerVersion() : "v0.0.0";
-		String logo = (serviceConfig != null) 
-				? ServiceHelp.LOGO.replaceAll("SIGMA", serviceConfig.getServiceName()) 
-				: ServiceHelp.LOGO;
-		log.info(serviceConfig.getServiceName()+" Service is ready! ....... ..." 
+		String version="v0.1.0", name="NoName";
+		if(serviceConfig != null) {
+			version = serviceConfig.getServerVersion();
+			name =serviceConfig.getServiceName();
+		}
+		String logo =ServiceHelp.LOGO.replaceAll("SIGMA", name).replaceAll("VERSION", version);
+		log.info(name+" Service is ready! ....... ..."
 				+ logo
 				+ "Build No. = "+serviceConfig.getBuildNumber()
 				+ " :: Build Date = "+serviceConfig.getBuildDate()

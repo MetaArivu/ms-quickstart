@@ -4,8 +4,8 @@
 # -------------------------------------------------------------------------------------------
 # Check Container Logs
 # -------------------------------------------------------------------------------------------
-ORG=`../../getServiceName 2`
-SERVICE=`../../getServiceName`
+ORG=`../../getServiceName 1`
+SERVICE=`../../getServiceName 4`
 CID=`cat $SERVICE.cid`
 echo "Checking logs for Container = $SERVICE and Container ID = $CID"
 docker logs $CID

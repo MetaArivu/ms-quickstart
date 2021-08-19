@@ -57,7 +57,7 @@ public class ServiceHelp {
 	
 	public static final String LOGO = "" +NL
 	+"============================================================================" + NL
-	+":: SIGMA Service :: (v"+VERSION+") " + NL
+	+":: SIGMA Service :: (VERSION) " + NL
 	+"============================================================================" + NL;
 		 
 

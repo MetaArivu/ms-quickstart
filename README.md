@@ -14,10 +14,13 @@ Microservice Template gives you a
 ### Step 1 - Set the Org and Service Name, Versions, API Path
 
 1. Update the Org Name in src/main/resources/app.props.tmpl file (service.org)
-2. Update the microoservice name in src/main/resources/app.props.tmpl file (service.name)
+2. Update the microservice name in src/main/resources/app.props.tmpl file (service.name)
 3. Update the API Version in src/main/resources/app.props.tmpl file (service.api.version)
 4. Update the API Name in src/main/resources/app.props.tmpl file (service.api.name)
 5. Update the Server Version src/main/resources/app.props.tmpl file (server.version)
+6. Update the SRC_BASE (Your Service Repository Base Directory) in getServiceName shell script 
+
+When you change the version in POM.xml, update that info in src/main/resources/app.props.tmpl - service.version property also.
 
 ###  Step 2 - Compile (Once your code is ready) 
 

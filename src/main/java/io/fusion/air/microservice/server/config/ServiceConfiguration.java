@@ -96,6 +96,9 @@ public class ServiceConfiguration implements Serializable {
 	@Value("${service.api.path:PATH}")
 	private String serviceApiPath;
 
+	@Value("${service.container:ContainerName}")
+	private String serviceContainer;
+
 	@Value("${service.api.repository:GitRepo}")
 	private String serviceApiRepository;
 
@@ -329,5 +332,9 @@ public class ServiceConfiguration implements Serializable {
 
 	public String getServiceOrg() {
 		return serviceOrg;
+	}
+
+	public String getServiceContainer() {
+		return serviceContainer;
 	}
 }

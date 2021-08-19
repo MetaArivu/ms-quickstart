@@ -4,7 +4,7 @@
 # -------------------------------------------------------------------------------------------
 # Push Container
 # -------------------------------------------------------------------------------------------
-ORG=`../../getServiceName 2`
-SERVICE=`../../getServiceName`
+ORG=`../../getServiceName 1`
+SERVICE=`../../getServiceName 4`
 echo "docker push $ORG/$SERVICE"
 docker push $ORG/$SERVICE

@@ -13,6 +13,7 @@
 # After the Successful build and Startup of the Service, It should show the Build No. & Date
 # -------------------------------------------------------------------------------------------
 SERVICE=`getServiceName`
+CONTAINER=`getServiceName 4`
 
 echo "---------------------------------------------------------------------------------------"
 echo "Compiling $SERVICE Microservice"
@@ -31,8 +32,8 @@ mvn -e package
 # -------------------------------------------------------------------------------------------
 #echo cp target/*service*.?ar lib/
 echo "---------------------------------------------------------------------------------------"
-cp target/*service*-spring-boot.jar src/docker/$SERVICE-spring-boot.jar
-cp target/*service*?.?.?.jar src/docker/$SERVICE-thin.jar
+cp target/*service*-spring-boot.jar src/docker/$CONTAINER-spring-boot.jar
+cp target/*service*?.?.?.jar src/docker/$CONTAINER-thin.jar
 cp target/libs/* src/docker/libs/
 echo "Copy the Property File to the Docker Directory (src/docker)"
 cp src/main/resources/application.properties src/docker/

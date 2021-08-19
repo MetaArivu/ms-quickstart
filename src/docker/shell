@@ -4,6 +4,6 @@
 # -------------------------------------------------------------------------------------------
 # Shell Container
 # -------------------------------------------------------------------------------------------
-SERVICE=`../../getServiceName`
+SERVICE=`../../getServiceName 4`
 echo "docker container exec -it $SERVICE bash"
 docker container exec -it $SERVICE bash

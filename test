@@ -5,7 +5,7 @@
 
 PORT=9090
 API_VERSION=v1
-SERVICE=`getServiceName`
+SERVICE=`getServiceName 3`
 
 echo "---------------------------------------------------------------------------------------"
 echo "Testing $SERVICE Microservice"

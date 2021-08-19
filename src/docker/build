@@ -4,7 +4,12 @@
 # -------------------------------------------------------------------------------------------
 # Build Container
 # -------------------------------------------------------------------------------------------
-ORG=`../../getServiceName 2`
-SERVICE=`../../getServiceName`
+# Get the Org Name and Container Name from Properties file
+ORG=`../../getServiceName 1`
+SERVICE=`../../getServiceName 4`
+#sed -i -r "s/mock-service/`..\/..\/getServiceName 4`/g" Dockerfile
+# Replace Mock Service Container name with actual Container name
+sed -i -r "s/mock-service/$SERVICE/g" Dockerfile
+# Build Container
 echo "docker build --force-rm -f Dockerfile -t $ORG/$SERVICE . "
 docker build --force-rm -f Dockerfile -t $ORG/$SERVICE . 
