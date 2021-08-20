@@ -216,6 +216,7 @@ public class ServiceBootStrap {
 	 */
 	@Bean
 	public GroupedOpenApi configPublicApi() {
+		// System.out.println;
 		return GroupedOpenApi.builder()
 				.group(serviceConfig.getServiceName()+"-service-config")
 				.pathsToMatch(serviceConfig.getServiceApiPath()+"/config/**")
