@@ -48,9 +48,16 @@ then
 	echo "---------------------------------------------------------------------------------------"
 	cd src/docker
 	build
-	echo "$SERVICE Microservice Build Process Complete .............. "
 	echo "---------------------------------------------------------------------------------------"
-	echo "Start the Service using ./run script and then test it with ./test script"
+	echo "$SERVICE Microservice Build Process Completed Successfully! ........... "
+	echo "---------------------------------------------------------------------------------------"
+	echo "Start the Service using "
+	echo "  run (Run the SpringBoot App)  OR"
+	echo "  cd src/docker"
+	echo "  start (Start the Container)"
+	echo "Then to test it with"
+	echo "  test (To Test the SpringBoot App)"
+	echo "---------------------------------------------------------------------------------------"
 	echo "After the Successful build and Startup of the Service, It should show the Build No. & Date"
 	echo "---------------------------------------------------------------------------------------"
 else
