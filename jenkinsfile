@@ -4,6 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo 'Checkout the App'
+		checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/MetaArivu/microservice-template.git']]])
                 echo 'Build the App'
             }
         }
