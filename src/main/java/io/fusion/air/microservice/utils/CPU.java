@@ -48,10 +48,15 @@ public class CPU {
 	private static void loadMethods() {
 		// System.out.println("Initializing CPU..");
 		for (Method method : osMXBean.getClass().getDeclaredMethods()) {
-			method.setAccessible(true);
-			if (method.getName().startsWith("get")  && Modifier.isPublic(method.getModifiers())) {
-				methodsMap.put(method.getName(), method);
-				// System.out.println("Loading methods... "+method.getName()+"()");
+			try {
+				// System.out.println("CPU.loadMethods() => Loading methods... "+method.getName()+"()");
+				method.setAccessible(true);
+				if (method.getName().startsWith("get") && Modifier.isPublic(method.getModifiers())) {
+					methodsMap.put(method.getName(), method);
+				}
+			} catch (Exception ex) {
+				// System.out.println("Error in CPU.loadMethods() : "+ex.getMessage());
+				// ex.printStackTrace();
 			}
 		} // Loop
 	}
@@ -70,7 +75,7 @@ public class CPU {
 			System.out.println("OS MXBean "+_osMXBean+"() Invalid!");
 			return "";
 		}
-		Object value = null;
+		Object value = new Long("0");
 		Method method = methodsMap.get(_methodName);
 		if(method != null) {
 	 		try {
@@ -78,7 +83,7 @@ public class CPU {
 			} catch (Exception e) {
 				System.out.println("Exception in method "+_methodName+".invoke(_osMXBean) "
 									+"ERROR="+e.getMessage());
-				e.printStackTrace();
+				// e.printStackTrace();
 			}
 		} else {
 			System.out.println("Method "+_methodName+"() Not Found!");
@@ -280,16 +285,20 @@ public class CPU {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("|cpus=").append(availableProcessors());
-		
-		sb.append("|PCPU=").append(String.format("%.02f", CPU.getProcessCpuLoad()));
-		sb.append("|SCPU=").append(String.format("%.02f", CPU.getSystemCpuLoad()));
-		
+
+		String val = "";
+		try  {	val = String.format("%.02f", CPU.getProcessCpuLoad()); } catch (Exception ignored) { val = ""; }
+		sb.append("|PCPU=").append(val);
+		try  {	val = String.format("%.02f", CPU.getSystemCpuLoad()); } catch (Exception ignored) { val = ""; }
+		sb.append("|SCPU=").append(val);
+
 		sb.append("|FM=").append(toMBString(freeMemory()));
 		sb.append("|TM=").append(toMBString(totalMemory()));
-		
-		sb.append("|FSMem=").append(toMBString(CPU.getFreePhysicalMemorySize()));
+
+		try  {	val = String.format("%.02f", CPU.getFreePhysicalMemorySize()); } catch (Exception ignored) { val = ""; }
+		sb.append("|FSMem=").append(val);
 		sb.append("|TSMem=").append(toMBString(CPU.getTotalPhysicalMemorySize()));
-		
+
 		sb.append("|OFD=").append(CPU.getOpenFileDescriptorCount()).append("/");
 							sb.append(CPU.getMaxFileDescriptorCount());
 							

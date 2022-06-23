@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.fusion.air</groupId>
 	<artifactId>mock-service</artifactId>
-	<version>0.2.0</version>
+	<version>0.3.0</version>
 	<packaging>jar</packaging>
 	<name>mockService</name>
 	<description>Microservice Template</description>
@@ -48,6 +48,11 @@
 		<!-- Open API v3 - Swagger UI -->
 		<openapi.version>1.5.10</openapi.version>
 
+		<!-- Circuit Breaker -->
+		<resilience4j.version>1.7.1</resilience4j.version>
+
+		<!-- Prometheus -->
+		<prometheus.version>1.7.5</prometheus.version>
 	</properties>
 
 	<!-- ================================================================= -->
@@ -267,6 +272,28 @@
 		    <groupId>org.springdoc</groupId>
 		    <artifactId>springdoc-openapi-ui</artifactId>
 			<version>${openapi.version}</version>
+		</dependency>
+
+		<!-- ================================================================= -->
+		<!-- Circuit Breaker Implementation -->
+		<!-- ================================================================= -->
+		<!-- https://mvnrepository.com/artifact/io.github.resilience4j/resilience4j-spring-boot2 -->
+		<!--
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+			<version>${resilience4j.version}</version>
+		</dependency>
+		-->
+
+		<!-- ================================================================= -->
+		<!-- Prometheus -->
+		<!-- ================================================================= -->
+		<!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<version>${prometheus.version}</version>
 		</dependency>
 
 	</dependencies>

@@ -50,7 +50,7 @@ public class ServiceEventListener {
 	 */
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
-		log.info("Service is getting ready...... ");
+		log.info("Service is getting ready. Getting the CPU Status... ");
 	    log.info(CPU.printCpuStats());
 	    // System.out.println(LocalDateTime.now()+"|Service is getting ready...... ");
 	    // System.out.println(LocalDateTime.now()+"|"+CPU.printCpuStats());
@@ -67,7 +67,7 @@ public class ServiceEventListener {
 			name =serviceConfig.getServiceName();
 		}
 		String logo =ServiceHelp.LOGO.replaceAll("SIGMA", name).replaceAll("VERSION", version);
-		log.info(name+" Service is ready! ....... ..."
+		log.info(name+" Service is ready! ... .."
 				+ logo
 				+ "Build No. = "+serviceConfig.getBuildNumber()
 				+ " :: Build Date = "+serviceConfig.getBuildDate()
