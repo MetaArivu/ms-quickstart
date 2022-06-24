@@ -28,6 +28,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
@@ -82,12 +84,17 @@ public class AppControllerImpl extends AbstractController {
 	public ResponseEntity<Map<String,Object>> getStatus(@PathVariable("referenceNo") String _referenceNo,
 														HttpServletRequest request) throws Exception {
 		log.info("|"+name()+"|Request to Payment Status of Service... ");
+		// Response Object
 		HashMap<String,Object> status = new HashMap<String,Object>();
 		status.put("Code", 200);
 		status.put("Status", true);
 		status.put("ReferenceNo", _referenceNo);
 		status.put("Message","Payment Status is good!");
-		return ResponseEntity.ok(status);
+		// Additional Headers
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(HttpHeaders.CACHE_CONTROL, "no-cache");
+		// Return the Response
+		return new ResponseEntity<Map<String,Object>>(status, headers, HttpStatus.OK);
 	}
 
 	/**
