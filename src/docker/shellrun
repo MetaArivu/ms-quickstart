@@ -1,0 +1,10 @@
+#!/bin/bash
+# -------------------------------------------------------------------------------------------
+# @author: Araf Karsh Hamid
+# -------------------------------------------------------------------------------------------
+# Shell Container
+# -------------------------------------------------------------------------------------------
+ORG=`../../getServiceName 1`
+SERVICE=`../../getServiceName 4`
+echo "docker container run -it $ORG/$SERVICE bash"
+docker container run -it $ORG/$SERVICE bash
