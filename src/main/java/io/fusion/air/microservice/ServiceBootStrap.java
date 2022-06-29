@@ -189,7 +189,7 @@ public class ServiceBootStrap {
 	public GroupedOpenApi allPublicApi() {
 		return GroupedOpenApi.builder()
 				.group(serviceConfig.getServiceName()+"-service")
-				.pathsToMatch("/api/**")
+				.pathsToMatch(serviceConfig.getServiceApiPath()+"/**")
 				.build();
 	}
 
